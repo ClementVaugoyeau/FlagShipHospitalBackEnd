@@ -15,8 +15,6 @@ namespace FlagShipHospitalBackEnd.Controllers
             _context = context;
         }
 
-        public FlagSHospitalContext Context => _context;
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
