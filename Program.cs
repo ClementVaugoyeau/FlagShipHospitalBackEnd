@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
     // configure DI for application services
     services.AddScoped<IUserService, UserService>();
+    services.AddScoped<IDossierPatientService, DossierService>();
 }
 
 builder.Services.AddControllers();

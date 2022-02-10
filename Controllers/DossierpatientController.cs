@@ -14,53 +14,65 @@ namespace FlagShipHospitalBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-    public class DossierpatientController : ControllerBase
+    //[Authorize]
+    public class DossierpatientController : Controller
     {
-        private readonly FlagSHospitalContext _context;
+        //public readonly FlagSHospitalContext _context;
 
-        public DossierpatientController(FlagSHospitalContext context)
+        private IDossierPatientService _dossierPatientService;
+
+        public DossierpatientController(IDossierPatientService dossierPatientService)
         {
-            _context = context;
-        }
-
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUserId(int id)
-        {
-            var user = await _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefaultAsync();
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return user;
+            _dossierPatientService = dossierPatientService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> CreateUser(User user)
+        public async Task<ActionResult<User>> Create(Dossierpatient dossierpatient)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
+            var response = await _dossierPatientService.Post(dossierpatient);
+
+            if (response == null)
+                return BadRequest(new { message = "Dossierpatient non créé" });
+
+            return Ok(response);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetDossierPatient()
+        //{
+        //    return await _context.Dossierpatients.ToListAsync();
+        //}
+
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Dossierpatient>> GetDossierPatient(int id)
+        //{
+        //    var dossier = await _context.Dossierpatients.Where(d => d.Id == id).FirstOrDefaultAsync();
+        //    if (dossier == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return dossier;
+        //}
+
+        //[HttpPost]
+        //public async Task<ActionResult<Dossierpatient>> CreateDossierPatient(Dossierpatient dossier)
+        //{
+        //    _context.Dossierpatients.Add(dossier);
+        //    await _context.SaveChangesAsync();
+        //    return CreatedAtAction(nameof(GetDossierPatient), new { id = dossier.Id }, dossier);
+        //}
+
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Dossierpatient>> DeleteDossierPatient(int id)
+        //{
+        //    var dossier = await _context.Dossierpatients.FindAsync(id);
+        //    if (dossier == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    _context.Dossierpatients.Remove(dossier);
+        //    await _context.SaveChangesAsync();
+        //    return NoContent();
+        //}
     }
 }

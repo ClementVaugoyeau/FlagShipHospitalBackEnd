@@ -37,11 +37,11 @@ namespace FlagShipHospitalBackEnd.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.DateArrivee)
-                    .HasColumnType("timestamp without time zone")
+                    .HasColumnType("timestamp with time zone")
                     .HasColumnName("date_arrivee");
 
                 entity.Property(e => e.DateDepart)
-                    .HasColumnType("timestamp without time zone")
+                    .HasColumnType("timestamp with time zone")
                     .HasColumnName("date_depart");
 
                 entity.Property(e => e.Nom)
