@@ -50,7 +50,7 @@ namespace FlagShipHospitalBackEnd.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Email == model.Email && x.Motdepasse == model.Motdepasse);
+            var user = _context.Users.SingleOrDefault(x => x.Email == model.Email && x.Motdepasse == Common.Secure.Encrypteur(model.Motdepasse));
 
             // return null if user not found
             if (user == null) return null;
@@ -110,7 +110,9 @@ namespace FlagShipHospitalBackEnd.Services
 
         public async Task<ActionResult<int>> Post(User user)
         {
-            _context.Users.Add(user);
+            User temp = new User(user.Id, user.Email, user.Role, Common.Secure.Encrypteur(user.Motdepasse));
+            _context.Users.Add(temp);
+            /*_context.Users.Add(user);*/
             return await _context.SaveChangesAsync();
         }
 
