@@ -68,6 +68,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Create(User user)
         {
+            Console.WriteLine(user.Id + user.Email + user.Role + user.Motdepasse);
             var response = await _userService.Post(user);
 
             if (response == null)
