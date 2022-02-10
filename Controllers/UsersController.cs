@@ -11,7 +11,7 @@ using FlagShipHospitalBackEnd.Services;
 
 namespace FlagShipHospitalBackEnd.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UsersController : Controller
     {
