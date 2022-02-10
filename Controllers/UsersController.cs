@@ -72,7 +72,7 @@ namespace FlagShipHospitalBackEnd.Controllers
 
             if (response == null)
                 return BadRequest(new { message = "User non créé" });
-            Console.WriteLine(response);
+            
             return Ok(response);
         }
 
