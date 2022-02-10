@@ -17,6 +17,10 @@ namespace FlagShipHospitalBackEnd.Services
         Task<ActionResult<IEnumerable<User>>> GetAll();
         Task<ActionResult<User>> GetById(int id);
         Task<ActionResult<int>> Post(User user);
+
+        Task<ActionResult<int>> Delete(int id);
+
+        Task<ActionResult<bool>> Exists(int id);
     }
 
     public class UserService : IUserService
@@ -47,7 +51,7 @@ namespace FlagShipHospitalBackEnd.Services
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
             var user = _context.Users.SingleOrDefault(x => x.Email == model.Email && x.Motdepasse == model.Motdepasse);
-            //var user = _users.SingleOrDefault(x => x.Email == model.Email && x.Motdepasse == model.Motdepasse);
+
             // return null if user not found
             if (user == null) return null;
 
@@ -57,10 +61,32 @@ namespace FlagShipHospitalBackEnd.Services
             return new AuthenticateResponse(user, token);
         }
 
+        public async Task<ActionResult<int>> Delete(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
+        }
+
+        public async Task<ActionResult<bool>> Exists(int id)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return true;
+            }
+
+            return false;
+
+            throw new NotImplementedException();
+        }
+
         public async Task<ActionResult<IEnumerable<User>>> GetAll()
         {
             return await _context.Users.ToListAsync();
-            //return _users;
+            
         }
 
         public async Task<ActionResult<User>> GetById(int id)
@@ -79,7 +105,7 @@ namespace FlagShipHospitalBackEnd.Services
             }
 
             return user;
-            //return _users.FirstOrDefault(x => x.Id == id);
+            
         }
 
         public async Task<ActionResult<int>> Post(User user)

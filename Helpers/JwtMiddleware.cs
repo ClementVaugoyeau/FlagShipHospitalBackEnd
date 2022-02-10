@@ -32,8 +32,6 @@ namespace FlagShipHospitalBackEnd.Helpers
         {
             try
             {
-                //Console.WriteLine("attachUserToContext");
-                //Console.WriteLine(token);
                 var key = "blablavlkfdqjlkvndsjkfnbsdlkbnlkdqfnfbkjnslkdvnkjdqnkbjndsfkj";
                 var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
 
@@ -46,32 +44,25 @@ namespace FlagShipHospitalBackEnd.Helpers
                     ValidateIssuer = false,
                 };
 
-                //Console.WriteLine("tokenValidationParameters");
-                //Console.WriteLine(tokenValidationParameters);
-
                 if (ValidateToken(token, tokenValidationParameters))
                 {
                     var TokenInfo = new Dictionary<string, string>();
                     var handler = new JwtSecurityTokenHandler();
                     var jwtSecurityToken = handler.ReadJwtToken(token);
-                    //Console.WriteLine("jwtSecurityToken");
-                    //Console.WriteLine(jwtSecurityToken);
                     var claims = jwtSecurityToken.Claims.ToList();
 
                     foreach (var claim in claims)
                     {
-                        //Console.WriteLine("claim");
-                        //Console.WriteLine(claim);
                         TokenInfo.Add(claim.Type, claim.Value);
                     }
 
-                    string sub = jwtSecurityToken.Subject;
-                    string iss = jwtSecurityToken.Issuer;
-                    DateTime iat = jwtSecurityToken.IssuedAt;
-                    List<string> audiences = new List<string>(jwtSecurityToken.Audiences);
-                    DateTime exp = jwtSecurityToken.ValidTo;
-                    string bar;
-                    bool ifBar = TokenInfo.TryGetValue("foo", out bar);
+                    //string sub = jwtSecurityToken.Subject;
+                    //string iss = jwtSecurityToken.Issuer;
+                    //DateTime iat = jwtSecurityToken.IssuedAt;
+                    //List<string> audiences = new List<string>(jwtSecurityToken.Audiences);
+                    //DateTime exp = jwtSecurityToken.ValidTo;
+                    //string bar;
+                    //bool ifBar = TokenInfo.TryGetValue("foo", out bar);
                     //Console.WriteLine("Subject: " + sub);
                     //Console.WriteLine("Issuer: " + iss);
                     //Console.WriteLine("Issued At: " + iat);
@@ -127,8 +118,6 @@ namespace FlagShipHospitalBackEnd.Helpers
                 var handler = new JwtSecurityTokenHandler();
                 SecurityToken securityToken;
                 ClaimsPrincipal principal = handler.ValidateToken(token, tvp, out securityToken);
-                //Console.WriteLine("principal");
-                //Console.WriteLine(principal);
                 return true;
             }
             catch (Exception ex)
