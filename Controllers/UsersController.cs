@@ -90,6 +90,14 @@ namespace FlagShipHospitalBackEnd.Controllers
             return Ok(response);
         }
 
+        
+        [HttpPut]
+        public async Task<ActionResult<User>> PutUser(User user)
+        {
+            var u = await _userService.Put(user);
+            return Ok(u);
+        }
+
         //private async bool UserExists(int id)
         //{
         //    return await _userService.Exists(id);

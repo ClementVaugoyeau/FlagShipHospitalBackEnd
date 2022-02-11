@@ -19,6 +19,7 @@ namespace FlagShipHospitalBackEnd.Services
         Task<ActionResult<int>> Post(User user);
         Task<ActionResult<int>> Delete(int id);
         Task<ActionResult<bool>> Exists(int id);
+        Task<ActionResult<int>> Put(User user);
     }
 
     public class UserService : IUserService
@@ -133,6 +134,12 @@ namespace FlagShipHospitalBackEnd.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+        public async Task<ActionResult<int>> Put(User user)
+        {
+            User temp = new User(user.Id, user.Email, user.Role, Common.Secure.Encrypteur(user.Motdepasse));
+            _context.Users.Update(temp);
+            return await _context.SaveChangesAsync();
         }
     }
 }
