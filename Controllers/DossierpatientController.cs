@@ -63,6 +63,17 @@ namespace FlagShipHospitalBackEnd.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Dossierpatient>> Delete(int id)
+        {
+            var dossier = await _dossierPatientService.Delete(id);
+
+            if (id == null)
+                return BadRequest("Not a valid id");
+
+            return Ok(dossier);
+        }
+
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Dossierpatient>> GetDossierPatient(int id)
         //{
@@ -82,17 +93,6 @@ namespace FlagShipHospitalBackEnd.Controllers
         //    return CreatedAtAction(nameof(GetDossierPatient), new { id = dossier.Id }, dossier);
         //}
 
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Dossierpatient>> DeleteDossierPatient(int id)
-        //{
-        //    var dossier = await _context.Dossierpatients.FindAsync(id);
-        //    if (dossier == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _context.Dossierpatients.Remove(dossier);
-        //    await _context.SaveChangesAsync();
-        //    return NoContent();
-        //}
+        
     }
 }

@@ -19,6 +19,7 @@ namespace FlagShipHospitalBackEnd.Services
         //Task<ActionResult<User>> GetById(int id);
 
         Task<ActionResult<IEnumerable<Dossierpatient>>> GetAll();
+        Task<ActionResult<Dossierpatient>> Delete(int id);
         Task<ActionResult<int>> Post(Dossierpatient dossierpatient);
         Task<ActionResult<Dossierpatient>> GetById(int id);
         //Task<ActionResult<int>> Delete(int id);
@@ -63,6 +64,14 @@ namespace FlagShipHospitalBackEnd.Services
             var dossPatient = await _context.Dossierpatients.ToListAsync();
 
             return dossPatient;
+        }
+
+        public async Task<ActionResult<Dossierpatient>> Delete(int id)
+        {
+            var dossier = await _context.Dossierpatients.FindAsync(id);
+            _context.Dossierpatients.Remove(dossier);
+            await _context.SaveChangesAsync();
+            return dossier;
         }
     }
 }
