@@ -68,8 +68,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Create(User user)
         {
-            User temp = new User(user.Id, user.Email, user.Role, Common.Secure.Encrypteur(user.Motdepasse));
-            var response = await _userService.Post(temp);
+            var response = await _userService.Post(user);
 
             if (response == null)
                 return BadRequest(new { message = "User non créé" });
