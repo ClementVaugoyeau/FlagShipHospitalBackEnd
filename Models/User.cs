@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace FlagShipHospitalBackEnd.Models
 {
-    public partial class User
+    public class User
     {
         public int Id { get; set; }
         public string Email { get; set; }
@@ -19,4 +19,6 @@ namespace FlagShipHospitalBackEnd.Models
             Motdepasse = motdepasse;
         }
     }
+
+    
 }

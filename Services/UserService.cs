@@ -110,7 +110,9 @@ namespace FlagShipHospitalBackEnd.Services
 
         public async Task<ActionResult<int>> Post(User user)
         {
-            _context.Users.Add(user);
+            User temp = new User(user.Id, user.Email, user.Role, Common.Secure.Encrypteur(user.Motdepasse));
+            _context.Users.Add(temp);
+            /*_context.Users.Add(user);*/
             return await _context.SaveChangesAsync();
         }
 
