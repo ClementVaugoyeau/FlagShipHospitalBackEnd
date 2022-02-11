@@ -17,9 +17,7 @@ namespace FlagShipHospitalBackEnd.Services
         Task<ActionResult<IEnumerable<User>>> GetAll();
         Task<ActionResult<User>> GetById(int id);
         Task<ActionResult<int>> Post(User user);
-
         Task<ActionResult<int>> Delete(int id);
-
         Task<ActionResult<bool>> Exists(int id);
     }
 

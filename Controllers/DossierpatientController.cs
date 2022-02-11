@@ -51,7 +51,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetDossierPatient()
+        public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetDossiersPatients()
         {
             var dossier = await _dossierPatientService.GetAll();
 
@@ -72,6 +72,13 @@ namespace FlagShipHospitalBackEnd.Controllers
                 return BadRequest("Not a valid id");
 
             return Ok(dossier);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Dossierpatient>> PutDossier(Dossierpatient dossier)
+        {
+            var d = await _dossierPatientService.Put(dossier);
+            return Ok(d);
         }
 
         //[HttpGet("{id}")]
