@@ -50,11 +50,18 @@ namespace FlagShipHospitalBackEnd.Controllers
             return dossier;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetDossierPatient()
-        //{
-        //    return await _context.Dossierpatients.ToListAsync();
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetDossierPatient()
+        {
+            var dossier = await _dossierPatientService.GetAll();
+
+            if (dossier == null)
+            {
+                return NotFound();
+            }
+            return dossier;
+
+        }
 
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Dossierpatient>> GetDossierPatient(int id)

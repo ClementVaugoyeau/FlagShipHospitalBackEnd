@@ -8,14 +8,17 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Collections.Generic;
 
 namespace FlagShipHospitalBackEnd.Services
 {
     public interface IDossierPatientService
     {
-        
+
         //Task<ActionResult<IEnumerable<User>>> GetAll();
         //Task<ActionResult<User>> GetById(int id);
+
+        Task<ActionResult<IEnumerable<Dossierpatient>>> GetAll();
         Task<ActionResult<int>> Post(Dossierpatient dossierpatient);
         Task<ActionResult<Dossierpatient>> GetById(int id);
         //Task<ActionResult<int>> Delete(int id);
@@ -55,5 +58,11 @@ namespace FlagShipHospitalBackEnd.Services
             return dossierPatient;
         }
 
+        public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetAll()
+        {
+            var dossPatient = await _context.Dossierpatients.ToListAsync();
+
+            return dossPatient;
+        }
     }
 }
