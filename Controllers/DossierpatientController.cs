@@ -26,6 +26,30 @@ namespace FlagShipHospitalBackEnd.Controllers
             _dossierPatientService = dossierPatientService;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetDossierPatient()
+        {
+            var dossier = await _dossierPatientService.GetAll();
+
+            if (dossier == null)
+            {
+                return NotFound();
+            }
+            return dossier;
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Dossierpatient>> Delete(int id)
+        {
+            var dossier = await _dossierPatientService.Delete(id);
+
+            if (id == null)
+                return BadRequest("Not a valid id");
+
+            return Ok(dossier);
+        }
+
         [HttpPost]
         public async Task<ActionResult<User>> Create(Dossierpatient dossierpatient)
         {
@@ -42,6 +66,19 @@ namespace FlagShipHospitalBackEnd.Controllers
         {
 
             var dossier = await _dossierPatientService.GetById(id);
+
+            if (dossier == null)
+            {
+                return NotFound();
+            }
+            return dossier;
+        }
+
+        [HttpGet("numsecu/{numsecu}")]
+        public async Task<ActionResult<Dossierpatient>> GetDossierByNumSecu(string numsecu)
+        {
+ 
+            var dossier = await _dossierPatientService.GetByNumSecu(numsecu);
 
             if (dossier == null)
             {
