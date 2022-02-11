@@ -50,7 +50,7 @@ namespace FlagShipHospitalBackEnd.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Email == model.Email && x.Motdepasse == model.Motdepasse);
+            var user = _context.Users.SingleOrDefault(x => x.Email == model.Email && x.Motdepasse == Common.Secure.Encrypteur(model.Motdepasse));
 
             // return null if user not found
             if (user == null) return null;

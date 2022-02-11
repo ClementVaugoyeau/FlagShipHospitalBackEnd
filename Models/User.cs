@@ -10,5 +10,13 @@ namespace FlagShipHospitalBackEnd.Models
         public string Email { get; set; }
         public string Role { get; set; }
         public string Motdepasse { get; set; }
+
+        public User(int id, string email, string role, string motdepasse)
+        {
+            Id = id;
+            Email = email;
+            Role = role;
+            Motdepasse = motdepasse;
+        }
     }
 }
