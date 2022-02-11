@@ -23,6 +23,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<FlagSHospitalContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DevConnectionPostGreSQL"));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

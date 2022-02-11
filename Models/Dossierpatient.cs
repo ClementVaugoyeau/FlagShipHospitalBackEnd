@@ -13,5 +13,6 @@ namespace FlagShipHospitalBackEnd.Models
         public DateTime DateArrivee { get; set; }
         public DateTime DateDepart { get; set; }
         public string Note { get; set; }
+
     }
 }

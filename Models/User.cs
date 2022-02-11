@@ -19,6 +19,4 @@ namespace FlagShipHospitalBackEnd.Models
             Motdepasse = motdepasse;
         }
     }
-
-    
 }
