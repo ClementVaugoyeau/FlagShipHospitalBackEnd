@@ -64,29 +64,20 @@ namespace FlagShipHospitalBackEnd.Controllers
             return dossier;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetDossierPatient()
-        //{
-        //    return await _context.Dossierpatients.ToListAsync();
-        //}
+        //[HttpPut("nom/{nom}")]
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Dossierpatient>> GetDossierPatient(int id)
+        //public async Task<ActionResult<Dossierpatient>> Update(Dossierpatient dossierpatient)
         //{
-        //    var dossier = await _context.Dossierpatients.Where(d => d.Id == id).FirstOrDefaultAsync();
+        //    var dossier = await _dossierPatientService.Update(dossierpatient);
+
         //    if (dossier == null)
         //    {
         //        return NotFound();
         //    }
-        //    return dossier;
-        //}
 
-        //[HttpPost]
-        //public async Task<ActionResult<Dossierpatient>> CreateDossierPatient(Dossierpatient dossier)
-        //{
-        //    _context.Dossierpatients.Add(dossier);
-        //    await _context.SaveChangesAsync();
-        //    return CreatedAtAction(nameof(GetDossierPatient), new { id = dossier.Id }, dossier);
+            
+
+        //    return Ok(dossier);
         //}
 
         //[HttpDelete("{id}")]

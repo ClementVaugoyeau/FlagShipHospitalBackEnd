@@ -19,6 +19,8 @@ namespace FlagShipHospitalBackEnd.Services
         Task<ActionResult<int>> Post(Dossierpatient dossierpatient);
         Task<ActionResult<Dossierpatient>> GetById(int id);
         Task<ActionResult<Dossierpatient>> GetByName(string nom);
+
+        Task<ActionResult<int>> Update(Dossierpatient dossierpatient);
         //Task<ActionResult<int>> Delete(int id);
 
         //Task<ActionResult<bool>> Exists(int id);
@@ -73,5 +75,14 @@ namespace FlagShipHospitalBackEnd.Services
             return dossierPatient;
         }
 
+        public async Task<ActionResult<int>> Update(Dossierpatient dossierpatient)
+        {
+
+
+            _context.Dossierpatients.Update(dossierpatient);
+            return await _context.SaveChangesAsync();
+        }
     }
+
+    
 }
