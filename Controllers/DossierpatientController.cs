@@ -64,21 +64,9 @@ namespace FlagShipHospitalBackEnd.Controllers
             return dossier;
         }
 
-        //[HttpPut("nom/{nom}")]
+       
 
-        //public async Task<ActionResult<Dossierpatient>> Update(Dossierpatient dossierpatient)
-        //{
-        //    var dossier = await _dossierPatientService.Update(dossierpatient);
-
-        //    if (dossier == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-            
-
-        //    return Ok(dossier);
-        //}
+        
 
         //[HttpDelete("{id}")]
         //public async Task<ActionResult<Dossierpatient>> DeleteDossierPatient(int id)

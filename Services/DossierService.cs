@@ -14,16 +14,12 @@ namespace FlagShipHospitalBackEnd.Services
     public interface IDossierPatientService
     {
         
-        //Task<ActionResult<IEnumerable<User>>> GetAll();
-        //Task<ActionResult<User>> GetById(int id);
+        
         Task<ActionResult<int>> Post(Dossierpatient dossierpatient);
         Task<ActionResult<Dossierpatient>> GetById(int id);
         Task<ActionResult<Dossierpatient>> GetByName(string nom);
 
-        Task<ActionResult<int>> Update(Dossierpatient dossierpatient);
-        //Task<ActionResult<int>> Delete(int id);
-
-        //Task<ActionResult<bool>> Exists(int id);
+        
     }
 
     public class DossierService : IDossierPatientService
@@ -75,13 +71,7 @@ namespace FlagShipHospitalBackEnd.Services
             return dossierPatient;
         }
 
-        public async Task<ActionResult<int>> Update(Dossierpatient dossierpatient)
-        {
-
-
-            _context.Dossierpatients.Update(dossierpatient);
-            return await _context.SaveChangesAsync();
-        }
+        
     }
 
     
