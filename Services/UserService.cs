@@ -21,28 +21,13 @@ namespace FlagShipHospitalBackEnd.Services
         Task<ActionResult<int>> Delete(int id);
 
         Task<ActionResult<bool>> Exists(int id);
+        Task<ActionResult<int>> Put(User user);
     }
 
     public class UserService : IUserService
     {
         private readonly FlagSHospitalContext _context = new FlagSHospitalContext();
 
-        //private readonly FlagSHospitalContext _context;
-
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        //private List<User> _users = new List<User>
-        //{
-        //new User { Id = 1, Email = "Test@test.fr", Role = "User", Motdepasse = "test"}
-        //};
-
-        //private readonly IOptions<AppSettings> _appSettings;
-
-        //private readonly FlagSHospitalContext _context;
-
-        //public UserService(IOptions<AppSettings> appSettings, FlagSHospitalContext _context)
-        //{
-        //    _appSettings = appSettings.Value;
-        //}
         public UserService()
         {
             
@@ -50,15 +35,11 @@ namespace FlagShipHospitalBackEnd.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            Console.WriteLine(model.Email);
-            Console.WriteLine(model.Motdepasse);
-            Console.WriteLine(Common.Secure.Encrypteur(model.Motdepasse));
+           
             var user = _context.Users.SingleOrDefault(x => x.Email == model.Email && x.Motdepasse == Common.Secure.Encrypteur(model.Motdepasse));
-            Console.WriteLine(user);
-            // return null if user not found
+
             if (user == null) return null;
 
-            // authentication successful so generate jwt token
             var token = generateJwtToken(user);
 
             return new AuthenticateResponse(user, token);
@@ -115,11 +96,10 @@ namespace FlagShipHospitalBackEnd.Services
         {
             User temp = new User(user.Id, user.Email, user.Role, Common.Secure.Encrypteur(user.Motdepasse));
             _context.Users.Add(temp);
-            /*_context.Users.Add(user);*/
+
             return await _context.SaveChangesAsync();
         }
 
-        // helper methods
 
         private string generateJwtToken(User user)
         {
@@ -136,5 +116,13 @@ namespace FlagShipHospitalBackEnd.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+        public async Task<ActionResult<int>> Put(User user)
+        {
+            User temp = new User(user.Id, user.Email, user.Role, Common.Secure.Encrypteur(user.Motdepasse));
+            _context.Users.Update(temp);
+            return await _context.SaveChangesAsync();
+        }
+
     }
 }

@@ -15,13 +15,11 @@ namespace FlagShipHospitalBackEnd.Services
     {
 
         Task<ActionResult<IEnumerable<Dossierpatient>>> GetAll();
-        //Task<ActionResult<User>> GetById(int id);
         Task<ActionResult<int>> Post(Dossierpatient dossierpatient);
         Task<ActionResult<Dossierpatient>> GetById(int id);
         Task<ActionResult<Dossierpatient>> GetByNumSecu(string numSecu);
         Task<ActionResult<Dossierpatient>> Delete(int id);
-
-        //Task<ActionResult<bool>> Exists(int id);
+        Task<ActionResult<int>> Put(Dossierpatient dossierpatient);
     }
 
     public class DossierService : IDossierPatientService
@@ -62,7 +60,7 @@ namespace FlagShipHospitalBackEnd.Services
             {
                 return null;
             }
-
+            Console.WriteLine(numsecu);
             var dossierPatient = await _context.Dossierpatients
                 .FirstOrDefaultAsync(m => m.NumSecu == numsecu);
 
@@ -89,6 +87,10 @@ namespace FlagShipHospitalBackEnd.Services
             await _context.SaveChangesAsync();
             return dossier;
         }
-
+        public async Task<ActionResult<int>> Put(Dossierpatient dossierpatient)
+        {
+            _context.Dossierpatients.Update(dossierpatient);
+            return await _context.SaveChangesAsync();
+        }
     }
 }
