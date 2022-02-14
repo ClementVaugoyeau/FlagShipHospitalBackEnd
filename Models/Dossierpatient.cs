@@ -8,6 +8,7 @@ namespace FlagShipHospitalBackEnd.Models
     public partial class Dossierpatient
     {
         public int Id { get; set; }
+        public string NumSecu { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public DateTime DateArrivee { get; set; }

@@ -36,6 +36,10 @@ namespace FlagShipHospitalBackEnd.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.NumSecu)
+                    .HasColumnType("character varying")
+                    .HasColumnName("numsecu");
+
                 entity.Property(e => e.DateArrivee)
                     .HasColumnType("timestamp with time zone")
                     .HasColumnName("date_arrivee");

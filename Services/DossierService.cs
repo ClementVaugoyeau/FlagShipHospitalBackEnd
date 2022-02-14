@@ -13,14 +13,13 @@ namespace FlagShipHospitalBackEnd.Services
 {
     public interface IDossierPatientService
     {
-        
-        //Task<ActionResult<IEnumerable<User>>> GetAll();
-        //Task<ActionResult<User>> GetById(int id);
+
+        Task<ActionResult<IEnumerable<Dossierpatient>>> GetAll();
         Task<ActionResult<int>> Post(Dossierpatient dossierpatient);
         Task<ActionResult<Dossierpatient>> GetById(int id);
-        //Task<ActionResult<int>> Delete(int id);
-
-        //Task<ActionResult<bool>> Exists(int id);
+        Task<ActionResult<Dossierpatient>> GetByNumSecu(string numSecu);
+        Task<ActionResult<Dossierpatient>> Delete(int id);
+        Task<ActionResult<int>> Put(Dossierpatient dossierpatient);
     }
 
     public class DossierService : IDossierPatientService
@@ -55,5 +54,43 @@ namespace FlagShipHospitalBackEnd.Services
             return dossierPatient;
         }
 
+        public async Task<ActionResult<Dossierpatient>> GetByNumSecu(string numsecu)
+        {
+            if (numsecu == "")
+            {
+                return null;
+            }
+            Console.WriteLine(numsecu);
+            var dossierPatient = await _context.Dossierpatients
+                .FirstOrDefaultAsync(m => m.NumSecu == numsecu);
+
+            if (dossierPatient == null)
+            {
+                return null;
+            }
+
+            return dossierPatient;
+
+        }
+
+        public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetAll()
+        {
+            var dossPatient = await _context.Dossierpatients.ToListAsync();
+
+            return dossPatient;
+        }
+
+        public async Task<ActionResult<Dossierpatient>> Delete(int id)
+        {
+            var dossier = await _context.Dossierpatients.FindAsync(id);
+            _context.Dossierpatients.Remove(dossier);
+            await _context.SaveChangesAsync();
+            return dossier;
+        }
+        public async Task<ActionResult<int>> Put(Dossierpatient dossierpatient)
+        {
+            _context.Dossierpatients.Update(dossierpatient);
+            return await _context.SaveChangesAsync();
+        }
     }
 }

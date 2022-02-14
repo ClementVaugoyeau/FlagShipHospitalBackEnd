@@ -34,7 +34,6 @@ namespace FlagShipHospitalBackEnd.Controllers
             return Ok(response);
         }
 
-       // GET: Users
        [Authorize]
        [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
@@ -44,7 +43,6 @@ namespace FlagShipHospitalBackEnd.Controllers
             return Ok(response);
         }
 
-        // GET: Users/Details/5
         [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUserById(int id)
@@ -64,8 +62,8 @@ namespace FlagShipHospitalBackEnd.Controllers
             return user;
         }
 
-        // GET: Users/Create
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<User>> Create(User user)
         {
             var response = await _userService.Post(user);
@@ -76,8 +74,6 @@ namespace FlagShipHospitalBackEnd.Controllers
             return Ok(response);
         }
 
-        // POST: Users/Delete/5
-        ////[HttpPost, ActionName("Delete")]
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteById(int id)
@@ -90,9 +86,13 @@ namespace FlagShipHospitalBackEnd.Controllers
             return Ok(response);
         }
 
-        //private async bool UserExists(int id)
-        //{
-        //    return await _userService.Exists(id);
-        //}
+        [HttpPut]
+        [Authorize]
+        public async Task<ActionResult<User>> PutUser(User user)
+        {
+            var u = await _userService.Put(user);
+            return Ok(u);
+        }
+
     }
 }
