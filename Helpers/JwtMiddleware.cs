@@ -33,6 +33,7 @@ namespace FlagShipHospitalBackEnd.Helpers
             try
             {
                 var key = "blablavlkfdqjlkvndsjkfnbsdlkbnlkdqfnfbkjnslkdvnkjdqnkbjndsfkj";
+                //var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
                 var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
 
                 TokenValidationParameters tokenValidationParameters = new TokenValidationParameters
