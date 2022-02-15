@@ -1,19 +1,28 @@
-﻿namespace FlagShipHospitalBackEnd.Helpers
+﻿using FlagShipHospitalBackEnd.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+
+namespace FlagShipHospitalBackEnd.Helpers
 {
-    using FlagShipHospitalBackEnd.Models;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Filters;
-    
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
+        public IList<string> _roles;
+
+        public AuthorizeAttribute(params string[] roles)
+        {
+            _roles = roles ?? new string[] { };
+        }
+
+
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            
-            var user = context.HttpContext.Items["User"];
-            
-            if (user == null)
+
+            var task = (Task<ActionResult<User>>)context.HttpContext.Items["User"];
+            var user = task.Result.Value;
+
+            if (user == null || (_roles.Any() && !_roles.Contains(user.Role)))
             {
                 // not logged in
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };

@@ -14,7 +14,7 @@ namespace FlagShipHospitalBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class DossierpatientController : Controller
     {
         private IDossierPatientService _dossierPatientService;
@@ -25,6 +25,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpGet]
+        [Authorize("Staff", "Docteur")]
         public async Task<ActionResult<IEnumerable<Dossierpatient>>> GetDossierPatient()
         {
             var dossier = await _dossierPatientService.GetAll();
@@ -38,6 +39,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize("Docteur")]
         public async Task<ActionResult<Dossierpatient>> Delete(int id)
         {
             var dossier = await _dossierPatientService.Delete(id);
@@ -49,6 +51,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpPost]
+        [Authorize("Docteur")]
         public async Task<ActionResult<User>> Create(Dossierpatient dossierpatient)
         {
             var response = await _dossierPatientService.Post(dossierpatient);
@@ -60,6 +63,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize("Staff", "Docteur")]
         public async Task<ActionResult<Dossierpatient>> GetByID(int id)
         {
 
@@ -73,6 +77,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpGet("numsecu/{numsecu}")]
+        [Authorize]
         public async Task<ActionResult<Dossierpatient>> GetDossierByNumSecu(string numsecu)
         {
  
@@ -86,6 +91,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpPut]
+        [Authorize("Staff","Docteur")]
         public async Task<ActionResult<Dossierpatient>> PutDossier(Dossierpatient dossier)
         {
             var d = await _dossierPatientService.Put(dossier);

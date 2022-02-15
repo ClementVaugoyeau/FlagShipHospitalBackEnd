@@ -60,7 +60,7 @@ namespace FlagShipHospitalBackEnd.Services
             {
                 return null;
             }
-            Console.WriteLine(numsecu);
+            
             var dossierPatient = await _context.Dossierpatients
                 .FirstOrDefaultAsync(m => m.NumSecu == numsecu);
 

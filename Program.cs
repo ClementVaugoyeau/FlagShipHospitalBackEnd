@@ -2,6 +2,7 @@ using FlagShipHospitalBackEnd.Helpers;
 using FlagShipHospitalBackEnd.Models;
 using FlagShipHospitalBackEnd.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 {
     var services = builder.Services;
     services.AddCors();
-    services.AddControllers();
+    services.AddControllers().AddJsonOptions(x =>
+    {
+        // serialize enums as strings in api responses (e.g. Role)
+        x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    }); 
 
     // configure strongly typed settings object
     services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));

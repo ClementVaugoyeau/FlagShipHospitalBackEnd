@@ -34,8 +34,8 @@ namespace FlagShipHospitalBackEnd.Controllers
             return Ok(response);
         }
 
-       [Authorize]
-       [HttpGet]
+        [Authorize("Staff", "Docteur")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             var response = await _userService.GetAll();
@@ -43,7 +43,7 @@ namespace FlagShipHospitalBackEnd.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        [Authorize("Staff", "Docteur")]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUserById(int id)
         {
@@ -63,7 +63,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize("Docteur")]
         public async Task<ActionResult<User>> Create(User user)
         {
             var response = await _userService.Post(user);
@@ -74,7 +74,7 @@ namespace FlagShipHospitalBackEnd.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        [Authorize("Docteur")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteById(int id)
         {
@@ -87,7 +87,7 @@ namespace FlagShipHospitalBackEnd.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        [Authorize("Staff", "Docteur")]
         public async Task<ActionResult<User>> PutUser(User user)
         {
             var u = await _userService.Put(user);
